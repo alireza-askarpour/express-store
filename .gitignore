@@ -1,0 +1,8 @@
+node_modules
+uploads
+dist
+
+yarn.lock
+package-lock.json
+
+.env
