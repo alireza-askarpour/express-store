@@ -1,9 +1,8 @@
 import chalk from 'chalk'
 import morgan from 'morgan'
-import { Request, Response } from 'express'
 
 export const morganMiddleware = morgan(
-  (tokens: any, req: Request, res: Response) =>
+  (tokens, req, res) =>
     [
       chalk.hex('#34ace0').bold(tokens.method(req, res)),
       chalk.hex('#ffb142').bold(tokens.status(req, res)),

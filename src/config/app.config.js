@@ -1,7 +1,6 @@
 import chalk from 'chalk'
 import dotenv from 'dotenv'
 import createHttpError from 'http-errors'
-import { Request, Response, NextFunction } from 'express'
 
 dotenv.config()
 
@@ -18,12 +17,7 @@ export const appListener = () => {
   console.log(`🏁 —> ${runningMode} ${runningOnPort} ${runningSince}`)
 }
 
-export const appErrorHandler = (
-  err: any,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const appErrorHandler = (err, req, res, next) => {
   const serverError = createHttpError.InternalServerError()
   const status = err.status || serverError.status
   const message = err.message || serverError.message
