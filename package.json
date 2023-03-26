@@ -12,8 +12,8 @@
     "trailingComma": "es5"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=production node ./src/index.js",
-    "dev": "cross-env NODE_ENV=development nodemon ./src/index.js",
+    "start": "cross-env NODE_ENV=production node ./index.js",
+    "dev": "cross-env NODE_ENV=development nodemon ./index.js",
     "format": "prettier --write ."
   },
   "dependencies": {
