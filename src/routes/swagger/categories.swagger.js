@@ -161,7 +161,7 @@
  *                   schema:
  *                      $ref: '#/components/schemas/AddSubcategory'
  *          responses:
- *             201:
+ *             200:
  *                description: Created subcategory successfully
  *             400:
  *                description: Bad request
@@ -190,7 +190,28 @@
  *                   schema:
  *                      $ref: '#/components/schemas/EditSubcategory'
  *          responses:
- *             201:
+ *             200:
+ *                description: Update subsubcategory successfully
+ *             400:
+ *                description: Bad request
+ *             500:
+ *                description: Internal server error
+ */
+
+/**
+ * @swagger
+ *    /categories/subcategories/remove/{id}:
+ *       patch:
+ *          tags: [Categories(Admin-Panel)]
+ *          summary: remove a subcategory by ID
+ *          parameters:
+ *             -  in: path
+ *                name: id
+ *                type: string
+ *                required: true
+
+ *          responses:
+ *             200:
  *                description: Update subsubcategory successfully
  *             400:
  *                description: Bad request

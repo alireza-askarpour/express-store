@@ -202,7 +202,6 @@ class CategoryClass extends Controller {
         }
       )
 
-      console.log(updatedSubcategory)
       if (updatedSubcategory.modifiedCount == 0) {
         throw createError.InternalServerError('Subcategory not created')
       }
@@ -218,6 +217,39 @@ class CategoryClass extends Controller {
   }
 
   /**
+   * remove a subcategory by ID
+   */
+  async removeSubcategory(req, res, next) {
+    const { id } = req.params
+    try {
+      await this.getOneSubcategory(id)
+
+      const removedSubcategory = await CategoryModel.updateOne(
+        { 'subcategories._id': id },
+        {
+          $pull: {
+            subcategories: {
+              _id: id,
+            },
+          },
+        }
+      )
+
+      if (removedSubcategory.modifiedCount == 0) {
+        throw createError.InternalServerError('subcategory deletion was not done')
+      }
+
+      return res.status(StatusCodes.OK).json({
+        success: true,
+        status: StatusCodes.OK,
+        message: 'Remove the subcategory successfully',
+      })
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  /**
    * check exist category by ID
    */
   async checkExistCategory(categoryId) {
@@ -225,6 +257,24 @@ class CategoryClass extends Controller {
     const category = await CategoryModel.findById(id)
     if (!category) throw createError.NotFound('not found category')
     return category
+  }
+
+  /**
+   * get one subcategory by subcategoryId
+   */
+  async getOneSubcategory(subcategoryId) {
+    const { id } = await objectIDValidation.validateAsync({ id: subcategoryId })
+
+    const subcategory = await CategoryModel.findOne(
+      { 'subcategories._id': id },
+      { 'subcategories.$': 1 }
+    )
+
+    if (!subcategory) {
+      throw createError.NotFound('No subcategory found with this ID.')
+    }
+
+    return subcategory
   }
 }
 
