@@ -91,3 +91,23 @@
  *             500:
  *                description: Internal server error
  */
+
+/**
+ * @swagger
+ *    /categories/remove/{id}:
+ *       delete:
+ *          tags: [Categories(Admin-Panel)]
+ *          summary: remove category by ID
+ *          parameters:
+ *             -  in: path
+ *                name: id
+ *                type: string
+ *                required: true
+ *          responses:
+ *             200:
+ *                description: Success
+ *             400:
+ *                description: Bad request
+ *             500:
+ *                description: Internal server error
+ */

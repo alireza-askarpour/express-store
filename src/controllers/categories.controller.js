@@ -78,6 +78,29 @@ class CategoryClass extends Controller {
     }
   }
 
+  /**
+   * Remove a category by ID
+   */
+  async removeCategory(req, res, next) {
+    const { id } = req.params
+    try {
+      const { _id } = await this.checkExistCategory(id)
+
+      const deletedCategory = await CategoryModel.deleteOne({ _id })
+      if (deletedCategory.deletedCount == 0) {
+        throw createError.InternalServerError('category delete failed')
+      }
+
+      res.status(StatusCodes.OK).json({
+        success: true,
+        status: StatusCodes.OK,
+        message: 'category deleted successfully',
+      })
+    } catch (err) {
+      next(err)
+    }
+  }
+
   async checkExistCategory(categoryId) {
     const { id } = await objectIDValidation.validateAsync({ id: categoryId })
     const category = await CategoryModel.findById(id)
