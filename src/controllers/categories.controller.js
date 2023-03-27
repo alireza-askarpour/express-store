@@ -9,6 +9,7 @@ import {
   createCategoryValidation,
   createSubcategoryValidation,
   updateategoryValidation,
+  updateSubcategoryValidation,
 } from '../validations/category.validation.js'
 
 class CategoryClass extends Controller {
@@ -117,9 +118,9 @@ class CategoryClass extends Controller {
    * create subcategory by categoryId
    */
   async createSubcategory(req, res, next) {
-    const { id } = req.params
+    const { categoryId } = req.params
     try {
-      const { _id } = await this.checkExistCategory(id)
+      const { _id } = await this.checkExistCategory(categoryId)
       const { name, value, disabled } =
         await createSubcategoryValidation.validateAsync(req.body)
 
@@ -141,6 +142,68 @@ class CategoryClass extends Controller {
       )
 
       if (createdSubcategory.modifiedCount == 0) {
+        throw createError.InternalServerError('Subcategory not created')
+      }
+
+      res.status(StatusCodes.OK).json({
+        success: true,
+        status: StatusCodes.OK,
+        message: 'Category created successfully',
+      })
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  /**
+   * update subcategory by subcategory Id
+   */
+  async updateSubcategory(req, res, next) {
+    const { id: subcategoryId } = req.params
+    try {
+      // validation of sent ID
+      const { id } = await objectIDValidation.validateAsync({
+        id: subcategoryId,
+      })
+
+      // validation of sent subcategory data
+      const subcategoryDataBody =
+        await updateSubcategoryValidation.validateAsync(req.body)
+
+      // checking the availability of the subcategory with the submitted ID
+      const existSubategory = await CategoryModel.findOne(
+        {
+          'subcategories._id': id,
+        },
+        { 'subcategories.$': 1 }
+      )
+
+      if (!existSubategory) {
+        throw createError.NotFound('No subcategory found with this ID')
+      }
+
+      // checking for non duplication of subcategories
+      const duplicateSubategory = await CategoryModel.findOne(
+        {
+          'subcategories.name': subcategoryDataBody.name,
+        },
+        { 'subcategories.$': 1 }
+      )
+
+      if (duplicateSubategory) {
+        throw createError.NotFound('Subcategory already existed')
+      }
+
+      // update update subcategory
+      const updatedSubcategory = await CategoryModel.updateOne(
+        { 'subcategories._id': id },
+        {
+          $set: { 'subcategories.$': subcategoryDataBody },
+        }
+      )
+
+      console.log(updatedSubcategory)
+      if (updatedSubcategory.modifiedCount == 0) {
         throw createError.InternalServerError('Subcategory not created')
       }
 
