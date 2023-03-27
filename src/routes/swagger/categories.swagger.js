@@ -27,6 +27,21 @@
 
 /**
  * @swagger
+ *    /categories/list:
+ *       get:
+ *          tags: [Categories(Admin-Panel)]
+ *          summary: get categories list
+ *          responses:
+ *             201:
+ *                description: Success
+ *             400:
+ *                description: Bad request
+ *             500:
+ *                description: Internal server error
+ */
+
+/**
+ * @swagger
  *    /categories/create:
  *       post:
  *          tags: [Categories(Admin-Panel)]

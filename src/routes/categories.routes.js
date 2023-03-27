@@ -1,10 +1,11 @@
 import express from 'express'
 
-import CategoryClass from '../controllers/categories.controller.js'
+import CategoryController from '../controllers/categories.controller.js'
 
 const router = express.Router()
 
-router.post('/create', CategoryClass.createCategory)
-router.patch('/update/:id', CategoryClass.updateCategory)
+router.get('/list', CategoryController.getCategories)
+router.post('/create', CategoryController.createCategory)
+router.patch('/update/:id', CategoryController.updateCategory)
 
 export default router

@@ -4,13 +4,29 @@ import { StatusCodes } from 'http-status-codes'
 import Controller from './controller.js'
 import CategoryModel from '../models/category.models.js'
 
+import { objectIDValidation } from '../validations/public.validation.js'
 import {
   createCategoryValidation,
   updateategoryValidation,
 } from '../validations/category.validation.js'
-import { objectIDValidation } from '../validations/public.validation.js'
 
 class CategoryClass extends Controller {
+  async getCategories(req, res, next) {
+    try {
+      const categories = await CategoryModel.find()
+      if (!categories)
+        throw createError.InternalServerError('categories list not received')
+
+      res.status(StatusCodes.OK).json({
+        status: StatusCodes.OK,
+        success: true,
+        categories,
+      })
+    } catch (err) {
+      next(err)
+    }
+  }
+
   async createCategory(req, res, next) {
     try {
       const { name, value } = await createCategoryValidation.validateAsync(
