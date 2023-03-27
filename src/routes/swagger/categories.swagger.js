@@ -23,6 +23,22 @@
  *                value:
  *                   type: string
  *                   description: the value of category
+ *          AddSubcategory:
+ *             type: object
+ *             required:
+ *                -  name
+ *                -  value
+ *                -  disabled
+ *             properties:
+ *                name:
+ *                   type: string
+ *                   description: the name of subcategory
+ *                value:
+ *                   type: string
+ *                   description: the value of subcategory
+ *                disabled:
+ *                   type: boolean
+ *                   description: the disabled of subcategory
  */
 
 /**
@@ -106,6 +122,35 @@
  *          responses:
  *             200:
  *                description: Success
+ *             400:
+ *                description: Bad request
+ *             500:
+ *                description: Internal server error
+ */
+
+/**
+ * @swagger
+ *    /categories/subcategories/create/{id}:
+ *       patch:
+ *          tags: [Categories(Admin-Panel)]
+ *          summary: create a subcategory by categoryID
+ *          parameters:
+ *             -  in: path
+ *                name: id
+ *                type: string
+ *                required: true
+ *          requestBody:
+ *             required: true
+ *             content:
+ *                application/x-www-form-urlencoded:
+ *                   schema:
+ *                      $ref: '#/components/schemas/AddSubcategory'
+ *                application/json:
+ *                   schema:
+ *                      $ref: '#/components/schemas/AddSubcategory'
+ *          responses:
+ *             201:
+ *                description: Created subcategory successfully
  *             400:
  *                description: Bad request
  *             500:

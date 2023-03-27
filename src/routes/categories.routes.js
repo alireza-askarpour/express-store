@@ -9,4 +9,6 @@ router.post('/create', CategoryController.createCategory)
 router.patch('/update/:id', CategoryController.updateCategory)
 router.delete('/remove/:id', CategoryController.removeCategory)
 
+router.patch('/subcategories/create/:id', CategoryController.createSubcategory)
+
 export default router

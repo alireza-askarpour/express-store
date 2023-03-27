@@ -7,6 +7,7 @@ import CategoryModel from '../models/category.models.js'
 import { objectIDValidation } from '../validations/public.validation.js'
 import {
   createCategoryValidation,
+  createSubcategoryValidation,
   updateategoryValidation,
 } from '../validations/category.validation.js'
 
@@ -106,6 +107,47 @@ class CategoryClass extends Controller {
         success: true,
         status: StatusCodes.OK,
         message: 'category deleted successfully',
+      })
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  /**
+   * create subcategory by categoryId
+   */
+  async createSubcategory(req, res, next) {
+    const { id } = req.params
+    try {
+      const { _id } = await this.checkExistCategory(id)
+      const { name, value, disabled } =
+        await createSubcategoryValidation.validateAsync(req.body)
+
+      const existCategory = await CategoryModel.findOne({
+        'subcategories.name': name,
+      })
+
+      if (existCategory) {
+        throw createError.BadRequest('Subcategory already existed')
+      }
+
+      const createdSubcategory = await CategoryModel.updateOne(
+        { _id },
+        {
+          $push: {
+            subcategories: { name, value, disabled },
+          },
+        }
+      )
+
+      if (createdSubcategory.modifiedCount == 0) {
+        throw createError.InternalServerError('Subcategory not created')
+      }
+
+      res.status(StatusCodes.OK).json({
+        success: true,
+        status: StatusCodes.OK,
+        message: 'Category created successfully',
       })
     } catch (err) {
       next(err)
