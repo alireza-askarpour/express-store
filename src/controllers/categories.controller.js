@@ -11,6 +11,9 @@ import {
 } from '../validations/category.validation.js'
 
 class CategoryClass extends Controller {
+  /**
+   * Get all categories
+   */
   async getCategories(req, res, next) {
     try {
       const categories = await CategoryModel.find()
@@ -27,6 +30,9 @@ class CategoryClass extends Controller {
     }
   }
 
+  /**
+   * create category
+   */
   async createCategory(req, res, next) {
     try {
       const { name, value } = await createCategoryValidation.validateAsync(
@@ -34,7 +40,8 @@ class CategoryClass extends Controller {
       )
 
       const existCategory = await CategoryModel.findOne({ name })
-      if (existCategory) throw createError.BadRequest('slug already existed')
+      if (existCategory)
+        throw createError.BadRequest('category already existed')
 
       const createdCategory = await CategoryModel.create({ name, value })
       if (!createdCategory)
@@ -50,6 +57,9 @@ class CategoryClass extends Controller {
     }
   }
 
+  /**
+   * Update a category by ID
+   */
   async updateCategory(req, res, next) {
     const { id } = req.params
     try {
@@ -59,7 +69,8 @@ class CategoryClass extends Controller {
       )
 
       const existCategory = await CategoryModel.findOne({ name })
-      if (existCategory) throw createError.BadRequest('slug already existed')
+      if (existCategory)
+        throw createError.BadRequest('category already existed')
 
       const updatedCategory = await CategoryModel.updateOne(
         { _id },
@@ -101,6 +112,9 @@ class CategoryClass extends Controller {
     }
   }
 
+  /**
+   * check exist category by ID
+   */
   async checkExistCategory(categoryId) {
     const { id } = await objectIDValidation.validateAsync({ id: categoryId })
     const category = await CategoryModel.findById(id)
