@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
     )
   },
 })
-console.log('a');
+
 const fileFilter = (req, file, cb) => {
   const ext = path.extname(file.originalname)
   const types = ['.jpg', '.jpeg', '.png', '.webp', '.gif']

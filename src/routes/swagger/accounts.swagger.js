@@ -18,6 +18,18 @@
  *                password:
  *                   type: string
  *                   description: the password for signup
+ *          Login:
+ *             type: object
+ *             required:
+ *                -  email
+ *                -  password
+ *             properties:
+ *                email:
+ *                   type: string
+ *                   description: the email for login
+ *                password:
+ *                   type: string
+ *                   description: the password for login
  */
 
 /**
@@ -31,6 +43,26 @@
  *                application/x-www-form-urlencoded:
  *                   schema:
  *                      $ref: '#/components/schemas/Signup'
+ *          responses:
+ *             201:
+ *                description: success
+ *             400:
+ *                description: bad request
+ *             500:
+ *                description: internal server error
+ */
+
+/**
+ * @swagger
+ *    /accounts/login:
+ *       post:
+ *          tags: [User-Authentication]
+ *          summary: login user with email and password
+ *          requestBody:
+ *             content:
+ *                application/x-www-form-urlencoded:
+ *                   schema:
+ *                      $ref: '#/components/schemas/Login'
  *          responses:
  *             201:
  *                description: success

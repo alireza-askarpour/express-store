@@ -6,3 +6,8 @@ export const signupValidation = Joi.object({
    email: Joi.string().required().error(createError.BadRequest('email is invalid')),
    password: Joi.string().required().error(createError.BadRequest('password is invalid')),
 })
+
+export const loginValidation = Joi.object({
+   email: Joi.string().required().error(createError.BadRequest('email is invalid')),
+   password: Joi.string().required().error(createError.BadRequest('password is invalid')),
+})
