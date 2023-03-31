@@ -14,4 +14,11 @@ router.post(
   ProductController.createProduct
 )
 
+router.patch(
+  '/update/:id',
+  uploadImage.array('images', 10),
+  stringToArray('tags', 'colors'),
+  ProductController.updateProduct
+)
+
 export default router

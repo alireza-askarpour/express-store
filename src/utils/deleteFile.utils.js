@@ -18,5 +18,4 @@ export const deleteFile = async fileAddress => {
   )
 
   await Promise.all(deletePromises)
-  console.log(`All files were deleted`)
 }
