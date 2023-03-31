@@ -29,7 +29,7 @@ class ProductController extends Controller {
       } = productBody
 
       const images = listOfImagesFromRequest(req?.files)
-      const feathers = setFeatures(productBody)
+      const features = setFeatures(productBody)
       const supplier = '64185b4ac2da05110733cbfd'
 
       const product = {
@@ -43,7 +43,7 @@ class ProductController extends Controller {
         price,
         discount,
         count,
-        feathers,
+        features,
       }
 
       const createdProduct = await ProductModel.create(product)
