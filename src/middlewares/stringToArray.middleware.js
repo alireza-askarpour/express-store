@@ -6,8 +6,6 @@ export const stringToArray = (...fields) => (req, res, next) => {
         : req.body[field].trim().split(',')
 
       req.body[field] = [...new Set(value)]
-    } else {
-      req.body[field] = []
     }
   })
 
