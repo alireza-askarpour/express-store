@@ -7,6 +7,8 @@ import { stringToArray } from '../middlewares/stringToArray.middleware.js'
 
 const router = express.Router()
 
+router.get('/list', ProductController.getProducts)
+
 router.post(
   '/create',
   uploadImage.array('images', 10),

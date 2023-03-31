@@ -15,6 +15,27 @@ import {
 } from '../validations/product.validation.js'
 
 class ProductController extends Controller {
+  async getProducts(req, res, next) {
+    const { search } = req.query
+    try {
+      const products = await ProductModel.find(
+        search ? { $text: { $search: search } } : {}
+      )
+
+      if (!products) {
+        throw createError.InternalServerError('PRODUCTS_NOT_RECEIVED')
+      }
+
+      res.status(StatusCodes.OK).json({
+        success: true,
+        status: StatusCodes.OK,
+        products,
+      })
+    } catch (err) {
+      next(err)
+    }
+  }
+
   async createProduct(req, res, next) {
     try {
       if (!req?.body?.tags) req.body.tags = []
