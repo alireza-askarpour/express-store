@@ -36,6 +36,21 @@ class ProductController extends Controller {
     }
   }
 
+  async getProduct(req, res, next) {
+    const { id } = req.params
+    try {
+      const product = await this.findProductById(id)
+
+      res.status(StatusCodes.OK).json({
+        success: true,
+        status: StatusCodes.OK,
+        product,
+      })
+    } catch (err) {
+      next(err)
+    }
+  }
+
   async createProduct(req, res, next) {
     try {
       if (!req?.body?.tags) req.body.tags = []

@@ -8,6 +8,7 @@ import { stringToArray } from '../middlewares/stringToArray.middleware.js'
 const router = express.Router()
 
 router.get('/list', ProductController.getProducts)
+router.get('/:id', ProductController.getProduct)
 
 router.post(
   '/create',
