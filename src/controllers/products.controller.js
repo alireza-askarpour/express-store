@@ -15,6 +15,9 @@ import {
 } from '../validations/product.validation.js'
 
 class ProductController extends Controller {
+  /**
+   * Get all products
+   */
   async getProducts(req, res, next) {
     const { search } = req.query
     try {
@@ -36,6 +39,9 @@ class ProductController extends Controller {
     }
   }
 
+  /**
+   * Get a product by ID
+   */
   async getProduct(req, res, next) {
     const { id } = req.params
     try {
@@ -51,6 +57,9 @@ class ProductController extends Controller {
     }
   }
 
+  /**
+   * Create product
+   */
   async createProduct(req, res, next) {
     try {
       if (!req?.body?.tags) req.body.tags = []
@@ -104,6 +113,9 @@ class ProductController extends Controller {
     }
   }
 
+  /**
+   * Update product by ID
+   */
   async updateProduct(req, res, next) {
     const { id } = req.params
     try {
@@ -140,6 +152,9 @@ class ProductController extends Controller {
     }
   }
 
+  /**
+   * Find a product by ID
+   */
   async findProductById(productId) {
     const { id } = await objectIDValidation.validateAsync({ id: productId })
     const product = await ProductModel.findById(id)
