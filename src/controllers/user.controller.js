@@ -50,6 +50,29 @@ class UserController extends Controller {
       next(err)
     }
   }
+
+  /**
+   * Remove a user by ID
+   */
+  async removeUser(req, res, next) {
+    const { id } = req.params
+    try {
+      const { id: userId } = await objectIDValidation.validateAsync({ id })
+
+      const removedUserResult = await UserModel.deleteOne({ _id: userId })
+      if (removedUserResult.deletedCount == 0) {
+        throw createError.InternalServerError('The user could not be deleted')
+      }
+
+      res.status(StatusCodes.OK).json({
+        status: StatusCodes.OK,
+        success: true,
+        message: 'USER_DELETED_SUCCESS',
+      })
+    } catch (err) {
+      next(err)
+    }
+  }
 }
 
 export default new UserController()
