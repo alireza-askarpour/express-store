@@ -4,7 +4,10 @@ import { StatusCodes } from 'http-status-codes'
 import Controller from './controller.js'
 import RoleModel from '../models/role.models.js'
 
-import { createRoleSchema, updateRoleSchema } from '../validations/role.validation.js'
+import {
+  createRoleSchema,
+  updateRoleSchema,
+} from '../validations/role.validation.js'
 import mongoose from 'mongoose'
 
 class RoleController extends Controller {
@@ -87,6 +90,30 @@ class RoleController extends Controller {
         status: StatusCodes.OK,
         success: true,
         message: 'ROLE_UPDATED_SUCCESS',
+      })
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  /**
+   * Remove role with Id or title
+   */
+  async removeRole(req, res, next) {
+    const { field } = req.params
+    try {
+      const role = await this.findRoleWithIdOrTitle(field)
+
+      const removeRoleResult = await RoleModel.deleteOne({ _id: role._id })
+
+      if (!removeRoleResult.deletedCount) {
+        throw createHttpError.InternalServerError('DELETE_ROLE_FAILED')
+      }
+
+      res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
+        success: true,
+        message: 'ROLE_DELETED_SUCCESS',
       })
     } catch (err) {
       next(err)

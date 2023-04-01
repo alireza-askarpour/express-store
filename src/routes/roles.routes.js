@@ -15,5 +15,6 @@ router.post(
   RolesController.createRole
 )
 router.patch('/update/:id', verifyAccessToken, RolesController.updateRole)
+router.delete('/remove/:field', verifyAccessToken, RolesController.removeRole)
 
 export default router

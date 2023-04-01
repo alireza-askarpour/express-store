@@ -86,3 +86,21 @@
  *                  description: Edited the role successfully
  *
  */
+
+/**
+ * @swagger
+ *  /roles/remove/{field}:
+ *      delete:
+ *          tags: [RBAC(Admin-Panel)]
+ *          summary: remove role by ID or Title
+ *          parameters:
+ *              -   in: path
+ *                  name: field
+ *                  type: string
+ *                  required: true
+ *                  description: send title of role or objectId of role for remove that
+ *          responses:
+ *              200:
+ *                  description: removed the Role
+ *
+ */
