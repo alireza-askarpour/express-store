@@ -6,6 +6,7 @@ import productsRoutes from './product.routes.js'
 import usersRoutes from './users.routes.js'
 import permissionsRoutes from './permissions.routes.js'
 import rolesRoutes from './roles.routes.js'
+import homeRoutes from './home.routes.js'
 
 import { checkPermission } from '../middlewares/permission.guard.js'
 import { verifyAccessToken } from '../middlewares/authorization.middleware.js'
@@ -35,5 +36,6 @@ router.use(
   checkPermission([PERMISSIONS.ADMIN]),
   rolesRoutes
 )
+router.use(homeRoutes)
 
 export default router
