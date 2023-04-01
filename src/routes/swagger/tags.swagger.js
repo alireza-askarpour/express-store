@@ -9,4 +9,6 @@
  *          description: managment categories section
  *       -  name: Products(Admin-Panel)
  *          description: managment products section
+ *       -  name: Users(Admin-Panel)
+ *          description: managment users section
  */
