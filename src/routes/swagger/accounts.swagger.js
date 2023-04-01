@@ -30,6 +30,14 @@
  *                password:
  *                   type: string
  *                   description: the password for login
+ *          RefreshToken:
+ *             type: object
+ *             required:
+ *                -  refreshToken
+ *             properties:
+ *                refreshToken:
+ *                   type: string
+ *                   description: enter refresh-token for get refresh token and refresh-token
  */
 
 /**
@@ -65,6 +73,30 @@
  *                      $ref: '#/components/schemas/Login'
  *          responses:
  *             201:
+ *                description: success
+ *             400:
+ *                description: bad request
+ *             500:
+ *                description: internal server error
+ */
+
+/**
+ * @swagger
+ *    /accounts/refresh-token:
+ *       post:
+ *          tags: [User-Authentication]
+ *          summary: refresh token route for get new access token and refresh token
+ *          requestBody:
+ *             required: true
+ *             content:
+ *                application/x-www-form-urlencoded:
+ *                   schema:
+ *                      $ref: '#/components/schemas/RefreshToken'
+ *                application/json:
+ *                   schema:
+ *                      $ref: '#/components/schemas/RefreshToken'
+ *          responses:
+ *             200:
  *                description: success
  *             400:
  *                description: bad request

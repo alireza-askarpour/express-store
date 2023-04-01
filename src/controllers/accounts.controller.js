@@ -6,7 +6,11 @@ import Controller from './controller.js'
 import UserModel from '../models/user.models.js'
 
 import { hashString } from '../utils/hashString.utils.js'
-import { signAccessToken } from '../utils/token.utils.js'
+import {
+  signAccessToken,
+  signRefreshToken,
+  verifyRefreshToken,
+} from '../utils/token.utils.js'
 import {
   loginValidation,
   signupValidation,
@@ -23,6 +27,7 @@ class AccountController extends Controller {
 
       const hashedPassword = hashString(password)
       const accessToken = await signAccessToken({ email })
+      const refreshToken = await signRefreshToken({ email })
 
       const duplicateEmail = await UserModel.findOne({ email })
       if (duplicateEmail) throw createError.BadRequest('Email already exists')
@@ -40,6 +45,7 @@ class AccountController extends Controller {
         success: true,
         status: StatusCodes.CREATED,
         accessToken,
+        refreshToken,
       })
     } catch (err) {
       next(err)
@@ -62,11 +68,36 @@ class AccountController extends Controller {
       }
 
       const accessToken = await signAccessToken({ email })
+      const refreshToken = await signRefreshToken({ email })
 
       res.status(StatusCodes.CREATED).json({
         success: true,
         status: StatusCodes.CREATED,
         accessToken,
+        refreshToken,
+      })
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  /**
+   * Get new access-token and refresh-token
+   */
+  async refreshToken(req, res, next) {
+    const { refreshToken } = req.body
+    try {
+      const email = await verifyRefreshToken(refreshToken)
+      const user = await UserModel.findOne({ email })
+
+      const accessToken = await signAccessToken({ email: user.email })
+      const newRefreshToken = await signRefreshToken({ email: user.email })
+
+      res.status(StatusCodes.OK).json({
+        success: true,
+        status: StatusCodes.OK,
+        accessToken,
+        refreshToken: newRefreshToken,
       })
     } catch (err) {
       next(err)
