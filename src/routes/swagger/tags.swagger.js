@@ -1,6 +1,8 @@
 /**
  * @swagger
  *    tags:
+ *       -  name: RBAC(Admin-Panel)
+ *          description: managment RBAC section
  *       -  name: User-Authentication
  *          description: user authentication section
  *       -  name: Accounts
@@ -11,6 +13,4 @@
  *          description: managment products section
  *       -  name: Users(Admin-Panel)
  *          description: managment users section
- *       -  name: RBAC(Admin-Panel)
- *          description: managment RBAC section
  */
