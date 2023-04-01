@@ -95,6 +95,32 @@ class PermissionsController extends Controller {
   }
 
   /**
+   * Remove permission by ID
+   */
+  async removePermission(req, res, next) {
+    const { id } = req.params
+    try {
+      const { _id } = await this.findPermissionByID(id)
+
+      const removePermissionResult = await PermissionModel.deleteOne({ _id })
+
+      if (!removePermissionResult.deletedCount) {
+        throw createHttpError.InternalServerError(
+          'The permission was not Removed'
+        )
+      }
+
+      res.status(StatusCodes.OK).json({
+        status: StatusCodes.OK,
+        success: true,
+        message: 'Permission was successfully removed',
+      })
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  /**
    * find permission by ID
    */
   async findPermissionByID(id) {
