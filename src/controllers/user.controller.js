@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes'
 
 import Controller from './controller.js'
 import UserModel from '../models/user.models.js'
+import { objectIDValidation } from '../validations/public.validation.js'
 
 class UserController extends Controller {
   /**
@@ -23,6 +24,27 @@ class UserController extends Controller {
         statusCode: StatusCodes.OK,
         success: true,
         users,
+      })
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  /**
+   * Get user by ID
+   */
+  async getUser(req, res, next) {
+    const { id } = req.params
+    try {
+      const { id: userId } = await objectIDValidation.validateAsync({ id })
+
+      const user = await UserModel.findById(userId)
+      if (!user) throw createError.InternalServerError('User not received')
+
+      res.status(StatusCodes.OK).json({
+        status: StatusCodes.OK,
+        success: true,
+        user,
       })
     } catch (err) {
       next(err)
