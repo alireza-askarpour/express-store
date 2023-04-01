@@ -7,13 +7,33 @@ import usersRoutes from './users.routes.js'
 import permissionsRoutes from './permissions.routes.js'
 import rolesRoutes from './roles.routes.js'
 
+import { checkPermission } from '../middlewares/permission.guard.js'
+import { verifyAccessToken } from '../middlewares/authorization.middleware.js'
+
+import { PERMISSIONS } from '../constants/RBACK.constant.js'
+
 const router = express.Router()
 
 router.use('/accounts', accountsRoutes)
 router.use('/categories', categoriesRoutes)
 router.use('/products', productsRoutes)
-router.use('/users', usersRoutes)
-router.use('/permissions', permissionsRoutes)
-router.use('/roles', rolesRoutes)
+router.use(
+  '/users',
+  verifyAccessToken,
+  checkPermission([PERMISSIONS.ADMIN]),
+  usersRoutes
+)
+router.use(
+  '/permissions',
+  verifyAccessToken,
+  checkPermission([PERMISSIONS.ADMIN]),
+  permissionsRoutes
+)
+router.use(
+  '/roles',
+  verifyAccessToken,
+  checkPermission([PERMISSIONS.ADMIN]),
+  rolesRoutes
+)
 
 export default router
