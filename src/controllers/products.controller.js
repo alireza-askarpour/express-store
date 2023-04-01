@@ -80,7 +80,7 @@ class ProductController extends Controller {
 
       const images = listOfImagesFromRequest(req?.files)
       const features = setFeatures(productBody)
-      const supplier = '64185b4ac2da05110733cbfd'
+      const supplier = req?.user?._id
 
       const product = {
         images,

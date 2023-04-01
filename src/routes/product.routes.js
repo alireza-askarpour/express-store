@@ -4,6 +4,7 @@ import ProductController from '../controllers/products.controller.js'
 
 import { uploadImage } from '../middlewares/upload.middleware.js'
 import { stringToArray } from '../middlewares/stringToArray.middleware.js'
+import { verifyAccessToken } from '../middlewares/authorization.middleware.js'
 
 const router = express.Router()
 
@@ -12,6 +13,7 @@ router.get('/:id', ProductController.getProduct)
 
 router.post(
   '/create',
+  verifyAccessToken,
   uploadImage.array('images', 10),
   stringToArray('tags', 'colors'),
   ProductController.createProduct
@@ -19,6 +21,7 @@ router.post(
 
 router.patch(
   '/update/:id',
+  verifyAccessToken,
   uploadImage.array('images', 10),
   stringToArray('tags', 'colors'),
   ProductController.updateProduct
