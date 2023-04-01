@@ -1,25 +1,17 @@
 import { Schema, model } from 'mongoose'
 
-const UserSchem = new Schema(
+const UserSchema = new Schema(
   {
     fullname: { type: String, required: true },
-    email: { type: String, unique: true, required: true },
-    mobile: { type: String, unique: true },
-    password: {
+    email: { type: String, required: true, unique: true, trim: true },
+    password: { type: String, required: true, min: 8 },
+    roles: {
       type: String,
-      lowercase: true,
-    },
-    role: {
-      type: String,
-      required: true,
       default: 'user',
       enum: ['user', 'admin'],
     },
   },
-  {
-    timestamps: true,
-    versionKey: false,
-  }
+  { timestamps: true }
 )
 
-export default model('user', UserSchem)
+export default model('User', UserSchema)
