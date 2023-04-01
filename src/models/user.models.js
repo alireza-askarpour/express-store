@@ -11,7 +11,7 @@ const UserSchema = new Schema(
       enum: ['user', 'admin'],
     },
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false }
 )
 
 export default model('User', UserSchema)

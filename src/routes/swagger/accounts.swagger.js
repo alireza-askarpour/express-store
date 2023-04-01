@@ -103,3 +103,20 @@
  *             500:
  *                description: internal server error
  */
+
+/**
+ * @swagger
+ *    /accounts/me:
+ *       get:
+ *          tags: [Accounts]
+ *          summary: get logged in user
+ *          responses:
+ *             200:
+ *                description: success
+ *             400:
+ *                description: bad request
+ *             401:
+ *                description: unauthorization
+ *             500:
+ *                description: internal server error
+ */

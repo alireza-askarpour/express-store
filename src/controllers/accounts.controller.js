@@ -103,6 +103,27 @@ class AccountController extends Controller {
       next(err)
     }
   }
+
+  /**
+   * Get logged in user
+   */
+  async getMe(req, res, next) {
+    try {
+      if (!req?.user) return createError.Unauthorized('USER_UNAUTHORIZED')
+
+      const userId = req.user._id
+      const user = await UserModel.findById(userId, { password: 0 })
+
+      res.status(StatusCodes.OK).json({
+        success: true,
+        status: StatusCodes.OK,
+        message: 'USER_FETCHED',
+        user,
+      })
+    } catch (err) {
+      next(err)
+    }
+  }
 }
 
 export default new AccountController()
