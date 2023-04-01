@@ -11,4 +11,6 @@
  *          description: managment products section
  *       -  name: Users(Admin-Panel)
  *          description: managment users section
+ *       -  name: Permissions(Admin-Panel)
+ *          description: managment permissions section
  */
