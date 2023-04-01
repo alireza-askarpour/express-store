@@ -7,6 +7,6 @@ const router = express.Router()
 
 router.get('/list', verifyAccessToken, UserController.getUsers)
 router.get('/:id', verifyAccessToken, UserController.getUser)
-router.delete('/remove/:id', UserController.removeUser)
+router.delete('/remove/:id', verifyAccessToken, UserController.removeUser)
 
 export default router

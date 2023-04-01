@@ -14,4 +14,6 @@ const UserSchema = new Schema(
   { timestamps: true, versionKey: false }
 )
 
+UserSchema.index({ fullname: 'text', email: 'text' })
+
 export default model('User', UserSchema)

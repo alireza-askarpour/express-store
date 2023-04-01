@@ -39,7 +39,7 @@ class UserController extends Controller {
       const { id: userId } = await objectIDValidation.validateAsync({ id })
 
       const user = await UserModel.findById(userId)
-      if (!user) throw createError.InternalServerError('User not received')
+      if (!user) throw createError.InternalServerError('USER_NOT_RECEIVED')
 
       res.status(StatusCodes.OK).json({
         status: StatusCodes.OK,

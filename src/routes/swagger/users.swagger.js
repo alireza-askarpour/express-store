@@ -4,6 +4,10 @@
  *       get:
  *          tags: [Users(Admin-Panel)]
  *          summary: get all users
+ *          parameters:
+ *             -  in: query
+ *                name: search
+ *                type: string
  *          responses:
  *             200:
  *                description: success
