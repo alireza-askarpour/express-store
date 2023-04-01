@@ -14,5 +14,6 @@ router.post(
   stringToArray('permissions'),
   RolesController.createRole
 )
+router.patch('/update/:id', verifyAccessToken, RolesController.updateRole)
 
 export default router

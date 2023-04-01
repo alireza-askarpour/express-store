@@ -63,3 +63,26 @@
  *                  description: created new Role
  *
  */
+
+/**
+ * @swagger
+ *  /roles/update/{id}:
+ *      patch:
+ *          tags: [RBAC(Admin-Panel)]
+ *          summary: edit role by ID
+ *          parameters:
+ *              -   in: path
+ *                  name: id
+ *                  type: string
+ *                  required: true
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  application/x-www-form-urlencoded:
+ *                      schema:
+ *                          $ref: '#/components/schemas/EditRole'
+ *          responses:
+ *              200:
+ *                  description: Edited the role successfully
+ *
+ */

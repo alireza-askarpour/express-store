@@ -8,3 +8,9 @@ export const createRoleSchema = Joi.object({
   description: Joi.string().min(0).max(100).required().error(createError.BadRequest('role is not correct')),
   permissions: Joi.array().items(Joi.string().pattern(MONGO_ID_PATTERN)).required().error(createError.BadRequest('permission is not correct')),
 })
+
+export const updateRoleSchema = Joi.object({
+   title: Joi.string().min(3).max(30).error(createError.BadRequest('titleis not correct')),
+   description: Joi.string().min(0).max(100).error(createError.BadRequest('role is not correct')),
+   permissions: Joi.array().items(Joi.string().pattern(MONGO_ID_PATTERN)).error(createError.BadRequest('permission is not correct'))
+})
