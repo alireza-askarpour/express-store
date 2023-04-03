@@ -8,7 +8,7 @@ const ProductSchema = new Schema(
     description: { type: String, required: true },
     images: { type: [String], required: true },
     tags: { type: [String], default: [] },
-    category: { type: Types.ObjectId, required: true },
+    category: { type: Types.ObjectId, ref: 'category', required: true },
     comments: { type: [CommentSchema], default: [] },
     likes: { type: [Types.ObjectId], ref: 'user', default: [] },
     deslikes: { type: [Types.ObjectId], ref: 'user', default: [] },

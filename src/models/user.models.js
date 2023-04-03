@@ -16,4 +16,4 @@ const UserSchema = new Schema(
 
 UserSchema.index({ fullname: 'text', email: 'text' })
 
-export default model('User', UserSchema)
+export default model('user', UserSchema)

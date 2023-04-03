@@ -23,7 +23,9 @@ class ProductController extends Controller {
     try {
       const products = await ProductModel.find(
         search ? { $text: { $search: search } } : {}
-      )
+      ).populate([
+        { path: 'supplier', select: { _id: 1, password: 1, email: 1 } },
+      ])
 
       if (!products) {
         throw createError.InternalServerError('PRODUCTS_NOT_RECEIVED')
