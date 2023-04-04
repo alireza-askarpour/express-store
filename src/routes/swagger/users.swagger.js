@@ -1,6 +1,6 @@
 /**
  * @swagger
- *    /users/list:
+ *    /users:
  *       get:
  *          tags: [Users(Admin-Panel)]
  *          summary: get all users
@@ -39,7 +39,7 @@
 
 /**
  * @swagger
- *    /users/remove/{id}:
+ *    /users/{id}:
  *       delete:
  *          tags: [Users(Admin-Panel)]
  *          summary: remove a user by ID

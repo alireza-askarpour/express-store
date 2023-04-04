@@ -203,13 +203,13 @@ class CategoryClass extends Controller {
       )
 
       if (updatedSubcategory.modifiedCount == 0) {
-        throw createError.InternalServerError('Subcategory not created')
+        throw createError.InternalServerError('Subcategory not updated')
       }
 
       res.status(StatusCodes.OK).json({
         success: true,
         status: StatusCodes.OK,
-        message: 'Category created successfully',
+        message: 'Category updated successfully',
       })
     } catch (err) {
       next(err)
@@ -236,7 +236,9 @@ class CategoryClass extends Controller {
       )
 
       if (removedSubcategory.modifiedCount == 0) {
-        throw createError.InternalServerError('subcategory deletion was not done')
+        throw createError.InternalServerError(
+          'subcategory deletion was not done'
+        )
       }
 
       return res.status(StatusCodes.OK).json({

@@ -24,7 +24,7 @@ class ProductController extends Controller {
       const products = await ProductModel.find(
         search ? { $text: { $search: search } } : {}
       ).populate([
-        { path: 'supplier', select: { _id: 1, password: 1, email: 1 } },
+        { path: 'supplier', select: { _id: 1, fullname: 1, email: 1 } },
       ])
 
       if (!products) {

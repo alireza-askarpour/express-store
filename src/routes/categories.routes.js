@@ -8,40 +8,40 @@ import { verifyAccessToken } from '../middlewares/authorization.middleware.js'
 
 const router = express.Router()
 
-router.get('/list', CategoryController.getCategories)
+router.get('/', CategoryController.getCategories)
 router.post(
-  '/create',
+  '/',
   verifyAccessToken,
   checkPermission([PERMISSIONS.ADMIN]),
   CategoryController.createCategory
 )
 router.patch(
-  '/update/:id',
+  '/:id',
   verifyAccessToken,
   checkPermission([PERMISSIONS.ADMIN]),
   CategoryController.updateCategory
 )
 router.delete(
-  '/remove/:id',
-  checkPermission([PERMISSIONS.ADMIN]),
+  '/:id',
   verifyAccessToken,
+  checkPermission([PERMISSIONS.ADMIN]),
   CategoryController.removeCategory
 )
 
 router.patch(
-  '/subcategories/create/:categoryId',
+  '/sub/:categoryId',
   verifyAccessToken,
   checkPermission([PERMISSIONS.ADMIN]),
   CategoryController.createSubcategory
 )
 router.patch(
-  '/subcategories/update/:id',
+  '/sub/update/:id',
   verifyAccessToken,
   checkPermission([PERMISSIONS.ADMIN]),
   CategoryController.updateSubcategory
 )
 router.patch(
-  '/subcategories/remove/:id',
+  '/sub/remove/:id',
   verifyAccessToken,
   checkPermission([PERMISSIONS.ADMIN]),
   CategoryController.removeSubcategory

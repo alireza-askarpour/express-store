@@ -140,7 +140,7 @@
 
 /**
  * @swagger
- *    /products/list:
+ *    /products:
  *       get:
  *          tags: [Products(Admin-Panel)]
  *          summary: get all products
@@ -183,7 +183,7 @@
 
 /**
  * @swagger
- *    /products/create:
+ *    /products:
  *       post:
  *          tags: [Products(Admin-Panel)]
  *          summary: create a product
@@ -206,7 +206,7 @@
 
 /**
  * @swagger
- *    /products/update/{id}:
+ *    /products/{id}:
  *       patch:
  *          tags: [Products(Admin-Panel)]
  *          summary: update product by ID

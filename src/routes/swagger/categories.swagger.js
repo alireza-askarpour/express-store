@@ -55,7 +55,7 @@
 
 /**
  * @swagger
- *    /categories/list:
+ *    /categories:
  *       get:
  *          tags: [Categories(Admin-Panel)]
  *          summary: get categories list
@@ -70,7 +70,7 @@
 
 /**
  * @swagger
- *    /categories/create:
+ *    /categories:
  *       post:
  *          tags: [Categories(Admin-Panel)]
  *          summary: create a category
@@ -94,7 +94,7 @@
 
 /**
  * @swagger
- *    /categories/update/{id}:
+ *    /categories/{id}:
  *       patch:
  *          tags: [Categories(Admin-Panel)]
  *          summary: update a category by ID
@@ -122,7 +122,7 @@
 
 /**
  * @swagger
- *    /categories/remove/{id}:
+ *    /categories/{id}:
  *       delete:
  *          tags: [Categories(Admin-Panel)]
  *          summary: remove category by ID
@@ -142,7 +142,7 @@
 
 /**
  * @swagger
- *    /categories/subcategories/create/{categoryId}:
+ *    /categories/sub/{categoryId}:
  *       patch:
  *          tags: [Categories(Admin-Panel)]
  *          summary: create a subcategory by categoryID
@@ -171,7 +171,7 @@
 
 /**
  * @swagger
- *    /categories/subcategories/update/{id}:
+ *    /categories/sub/update/{id}:
  *       patch:
  *          tags: [Categories(Admin-Panel)]
  *          summary: update a subcategory by ID
@@ -200,7 +200,7 @@
 
 /**
  * @swagger
- *    /categories/subcategories/remove/{id}:
+ *    /categories/sub/remove/{id}:
  *       patch:
  *          tags: [Categories(Admin-Panel)]
  *          summary: remove a subcategory by ID

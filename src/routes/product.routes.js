@@ -10,11 +10,11 @@ import { PERMISSIONS } from '../constants/RBACK.constant.js'
 
 const router = express.Router()
 
-router.get('/list', ProductController.getProducts)
+router.get('/', ProductController.getProducts)
 router.get('/:id', ProductController.getProduct)
 
 router.post(
-  '/create',
+  '/',
   verifyAccessToken,
   checkPermission([PERMISSIONS.ADMIN]),
   uploadImage.array('images', 10),
@@ -23,7 +23,7 @@ router.post(
 )
 
 router.patch(
-  '/update/:id',
+  '/:id',
   verifyAccessToken,
   checkPermission([PERMISSIONS.ADMIN]),
   uploadImage.array('images', 10),

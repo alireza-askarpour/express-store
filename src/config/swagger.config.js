@@ -6,7 +6,7 @@ export const swaggerSetup = swaggerUI.setup(
     swaggerDefinition: {
       openapi: '3.0.0',
       info: {
-        title: 'NodejsStore',
+        title: 'Express Store',
         version: '1.0.0',
         description: 'The e-commerce website.',
         contact: {
