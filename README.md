@@ -1,4 +1,4 @@
-# Fastlearn Backend
+# Express Store
 
 The store application built using Node.js, Express, Mongoose
 
