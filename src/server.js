@@ -1,16 +1,14 @@
 import http from 'http'
 import dotenv from 'dotenv'
 import express from 'express'
-import mongoose from 'mongoose'
 import createError from 'http-errors'
 import swaggerUI from 'swagger-ui-express'
 
-import { appErrorHandler, appListener } from './config/app.config.js'
-import { swaggerSetup } from './config/swagger.config.js'
-
-import { morganMiddleware } from './middlewares/morgan.middleware.js'
-
 import allRoutes from './routes/index.routes.js'
+import { swaggerSetup } from './config/swagger.config.js'
+import { appErrorHandler, appListener } from './config/app.config.js'
+import { morganMiddleware } from './middlewares/morgan.middleware.js'
+import { ConnectToMongoDB } from './config/connect-database.config.js'
 
 class Application {
   #app = express()
@@ -20,10 +18,11 @@ class Application {
   constructor(PORT, MONGO_URI) {
     this.#PORT = PORT
     this.#MONGO_URI = MONGO_URI
+    const db = new ConnectToMongoDB(MONGO_URI)
 
     this.configApplication()
     this.createServer()
-    this.connectToMongoDB()
+    db.connect()
     this.createRoutes()
     this.errorHandling()
   }
@@ -40,25 +39,6 @@ class Application {
   createServer() {
     const server = http.createServer(this.#app)
     server.listen(this.#PORT, appListener)
-  }
-
-  async connectToMongoDB() {
-    mongoose.set('strictQuery', false)
-
-    mongoose.connect(this.#MONGO_URI)
-
-    mongoose.connection.on('connected', () => {
-      console.log('✅ —> Mongoose connected to DB')
-    })
-
-    mongoose.connection.on('disconnected', () => {
-      console.log('❌ —> Mongoose disconnected!')
-    })
-
-    process.on('SIGINT', async () => {
-      await mongoose.connection.close()
-      process.exit(0)
-    })
   }
 
   createRoutes() {
